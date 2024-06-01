@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 import logo from "../../logo.svg";
 import "../styles/App.css";
-import { ThemeContext } from "../context/ThemeContext";
+import { useStateValue } from "../context/ThemeContext";
 function Page() {
-  const { isDarkTheme } = useContext(ThemeContext);
+  const [{ isDarkMode }, dispatch] = useStateValue();
 
   return (
-    <div className={`home ${isDarkTheme ? "darkTheme" : "lightTheme"}`}>
+    <div className={`home ${isDarkMode ? "darkTheme" : "lightTheme"}`}>
       <img src={logo} className='App-logo' alt='logo' />
 
       <a

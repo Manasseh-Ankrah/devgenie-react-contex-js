@@ -1,16 +1,18 @@
 import React, { useContext, useState } from "react";
 import "../styles/header.css";
 import { Outlet } from "react-router-dom";
-import { ThemeContext } from "../context/ThemeContext";
+import { useStateValue } from "../context/ThemeContext";
 
 const Header = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const { isDarkTheme, toggleTheme } = useContext(ThemeContext);
+  const [{ isDarkMode }, dispatch] = useStateValue();
 
-  const Button = () => {
-    toggleTheme();
-    setIsOpen((val) => !val);
-    return <button onClick={() => toggleTheme()}>change Theme</button>;
+  const toggleMode = () => {
+    dispatch({
+      type: "TOGGLE_DARK_MODE",
+      item: {
+        isDarkMode,
+      },
+    });
   };
 
   return (
@@ -19,7 +21,7 @@ const Header = () => {
         <div className='logo'>
           <a href='/'>Logo</a>
         </div>
-        <nav className={`nav ${isOpen ? "nav-open" : ""}`}>
+        <nav className={`nav ${isDarkMode ? "nav-open" : ""}`}>
           <ul className='nav-list'>
             <li className='nav-item'>
               <a href='/'>Home</a>
@@ -31,8 +33,8 @@ const Header = () => {
               <a href='/contact'>Contact Us</a>
             </li>
             <li className='nav-item'>
-              <button onClick={() => Button()}>
-                {isOpen ? "-- On --" : "-- Off --"}
+              <button onClick={() => toggleMode()}>
+                {isDarkMode ? "-- On --" : "-- Off --"}
               </button>
             </li>
           </ul>

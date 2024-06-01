@@ -5,7 +5,6 @@ export const ThemeContext = createContext();
 export const ThemeProvider = ({ reducer, initialState, children }) => {
   const value = useReducer(reducer, initialState);
 
-  value = { value };
   return (
     <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
   );
